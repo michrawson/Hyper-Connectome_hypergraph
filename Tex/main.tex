@@ -42,7 +42,9 @@
 
 % Title. If the supplement option is on, then "Supplementary Material"
 % is automatically inserted before the title.
-\title{Entropic Hyper-Connectomes Computation and Analysis\thanks{Submitted to the editors March 8, 2022.}}
+\title{Entropic Hyper-Connectomes Computation and Analysis
+\thanks{Submitted to the editors March 1, 2022.}
+}
 
 % Authors: full names plus addresses.
 \author{Michael G. Rawson\thanks{Department of Mathematics, University of Maryland at College Park, Maryland, USA 
@@ -148,7 +150,7 @@ For any $\epsilon>0$, there is an discrete approximation with the total correlat
 
 \end{theorem}
 
-Proof in supplemental. With the justification of \cref{thm}, we will approximate the total correlation from finite samples with \cref{alg:buildtree}. 
+Proof in supplemental. With the justification of \cref{thm}, we will approximate the total correlation from finite samples with \cref{alg:total_corr}. 
 
 \section{Simulation Study Results}\label{ssec:sim} 
 First we'll consider a small example where we know the distributions. We'll setup the distributions where doing classification by hypergraph is in theory possible, which we prove. For random variables $X$ and $Y$, let 
@@ -170,7 +172,7 @@ C(Y_1,Y_2,Y_3) &= [\sum_i H(Y_i)] - H(Y_1,Y_2,Y_3) < 0.
 Proof in supplemental. 
 In this case, a discriminator can distinguish subject $Y$ from subject $X$ with total correlation but would fail to distinguish when using Pearson correlations. If this was a neural connectome, only the hyper-connectome could classify the subjects. 
 
-We calculated the hypergraph with \cref{alg:buildtree}. Then we classify the data with a linear support vector machine. We give the results in \cref{table:sim}. The graph does not contain the information needed to classify the subject as a member of $X$ versus $Y$. The hypergraph does contain the information and the classifier successfully distinguishes $X$ from $Y$.
+We calculated the hypergraph with \cref{alg:total_corr}. Then we classify the data with a linear support vector machine. We give the results in \cref{table:sim}. The graph does not contain the information needed to classify the subject as a member of $X$ versus $Y$. The hypergraph does contain the information and the classifier successfully distinguishes $X$ from $Y$.
 
 \begin{table}[h]
 {\footnotesize
@@ -194,7 +196,7 @@ The fMRI aquisition details and preprocessing details are laid out in Adhikari e
 \subsection{Hyper-Connectome Visualization} 
 We visualize connectomes by plotting the graph for a normal subject and schiz. subject in \cref{fig:1a} and \cref{fig:1b}. In this graph, the nodes are the brain regions and the edges are the absolute value of Pearson correlation between regions, where length and width indicate the weight of the edge. In \cref{fig:1c} and \cref{fig:1d}, we visualize the hyper-connectomes of the same two subjects. In this graph, the nodes are the brain regions and the edges are weighted by the sum of the hyper-edges between the two nodes \cite{zhou2021}. We see that the connectomes are highly clustered with few outliers versus the hyper-connectomes which are have nodes covering the connectedness spectrum. 
 
-In \cref{fig:2}, we show the corresponding adjacency matrices to graphs \ref{fig:1a}, \ref{fig:1b}, \ref{fig:1c}, and \ref{fig:1d}. We see that the magnitudes of \cref{fig:2a} and \cref{fig:2b} are similar (in 0 to 1) while the magnitudes of \cref{fig:2c} and \cref{fig:2d} differ significantly (10K vs. 8.5K). We calculated the hypergraph with \cref{alg:buildtree}. The hypergraph threshold $\epsilon = 10^{-5}$, dimension $d=3$, and ROI variables are 61 brain regions. Subjects are 227. Samples used are the first 20 in the time series. 
+In \cref{fig:2}, we show the corresponding adjacency matrices to graphs \ref{fig:1a}, \ref{fig:1b}, \ref{fig:1c}, and \ref{fig:1d}. We see that the magnitudes of \cref{fig:2a} and \cref{fig:2b} are similar (in 0 to 1) while the magnitudes of \cref{fig:2c} and \cref{fig:2d} differ significantly (10K vs. 8.5K). We calculated the hypergraph with \cref{alg:total_corr}. The hypergraph threshold $\epsilon = 10^{-5}$, dimension $d=3$, and ROI variables are 61 brain regions. Subjects are 227. Samples used are the first 20 in the time series. 
 
 \begin{figure}[h]
      \centering
@@ -380,7 +382,7 @@ C(\tilde Y_1,\tilde Y_2,...,\tilde Y_n)
 
 \begin{algorithm}[h]
 \caption{Total Correlation}
-\label{alg:buildtree}
+\label{alg:total_corr}
 \begin{algorithmic}
 \STATE{Input:}
 \STATE{\quad $M\in\N : $ variables}
