@@ -1,5 +1,5 @@
 % SIAM Article Template
-\documentclass[review,onefignum,onetabnum]{siamonline190516}
+\documentclass[final,onefignum,onetabnum]{siamonline190516}
 
 % Packages and macros go here
 \usepackage{lipsum}
@@ -43,7 +43,7 @@
 % Title. If the supplement option is on, then "Supplementary Material"
 % is automatically inserted before the title.
 \title{Entropic Hyper-Connectomes Computation and Analysis
-\thanks{Submitted to the editors March 1, 2022.}
+% \thanks{Submitted to the editors March 8, 2022.}
 }
 
 % Authors: full names plus addresses.
@@ -87,7 +87,7 @@
 %   Submissions due:  March 8, 2022
 
 \begin{keywords}
-  Connectome, Hypergraph, Entropy, Linear Support Vector Machine, Prediction, Classification, Machine Learning, Schizophrenia 
+  Connectome, Hypergraph, Entropy, Machine Learning, Schizophrenia,  Linear Support Vector Machine, Prediction, Classification
 \end{keywords}
 
 % % REQUIRED
@@ -154,7 +154,7 @@ Proof in supplemental. With the justification of \cref{thm}, we will approximate
 
 \section{Simulation Study Results}\label{ssec:sim} 
 First we'll consider a small example where we know the distributions. We'll setup the distributions where doing classification by hypergraph is in theory possible, which we prove. For random variables $X$ and $Y$, let 
-$ X_i \sim Bernoulli(\{-1,1\},1/2), 1 \le i \le 3 $
+$ X_i \sim Bernoulli(\{-1,1\},1/2),$ $ 1 \le i \le 3 $
 and
 $ Y = [Y_1, Y_2, Y_3] = [X_1 X_2, X_2 X_3, X_3 X_1 ] $.
 Then
@@ -194,9 +194,9 @@ Normal: age 33.75 $\pm$ 14.22 with 61 males and 63 females).
 The fMRI aquisition details and preprocessing details are laid out in Adhikari et al. \cite{Adhikari2019}. This dataset consists of activity in 246 regions of interest (ROI) which we call the \emph{ROI variables} \cite{Fan2016}. We create the connectome and hyper-connectome with a subset of these ROI variables.
 
 \subsection{Hyper-Connectome Visualization} 
-We visualize connectomes by plotting the graph for a normal subject and schiz. subject in \cref{fig:1a} and \cref{fig:1b}. In this graph, the nodes are the brain regions and the edges are the absolute value of Pearson correlation between regions, where length and width indicate the weight of the edge. In \cref{fig:1c} and \cref{fig:1d}, we visualize the hyper-connectomes of the same two subjects. In this graph, the nodes are the brain regions and the edges are weighted by the sum of the hyper-edges between the two nodes \cite{zhou2021}. We see that the connectomes are highly clustered with few outliers versus the hyper-connectomes which are have nodes covering the connectedness spectrum. 
+We visualize connectomes by plotting the graph for a normal subject and schiz. subject in \cref{fig:1a} and \cref{fig:1b}. In this graph, the nodes are the brain regions and the edges are the absolute value of Pearson correlation between regions, where length and width indicate the weight of the edge. In \cref{fig:1c} and \cref{fig:1d}, we visualize the hyper-connectomes of the same two subjects. In this graph, the square nodes are the brain regions and the circles are significant hyper-edges between multiple nodes \cite{zhou2021}. We see that the connectomes are highly clustered with few outliers versus the hyper-connectomes which are have nodes covering the connectedness spectrum. 
 
-In \cref{fig:2}, we show the corresponding adjacency matrices to graphs \ref{fig:1a}, \ref{fig:1b}, \ref{fig:1c}, and \ref{fig:1d}. We see that the magnitudes of \cref{fig:2a} and \cref{fig:2b} are similar (in 0 to 1) while the magnitudes of \cref{fig:2c} and \cref{fig:2d} differ significantly (10K vs. 8.5K). We calculated the hypergraph with \cref{alg:total_corr}. The hypergraph threshold $\epsilon = 10^{-5}$, dimension $d=3$, and ROI variables are 61 brain regions. Subjects are 227. Samples used are the first 20 in the time series. 
+In \cref{fig:2}, we show the corresponding adjacency matrices to the graphs in \cref{fig:1}. For each pair of ROI, we sum the weights of all common hyperedges to produce the adjacency matrices in \cref{fig:2c} and \cref{fig:2d}. We see that the magnitudes of \cref{fig:2a} and \cref{fig:2b} are similar (in 0 to 1) while the maximums of \cref{fig:2c} and \cref{fig:2d} differ significantly (5000 vs. 5500). We calculated the hypergraph with \cref{alg:total_corr}. The hypergraph threshold $\epsilon = 10^{-5}$, dimension $d=3$, and ROI variables are 30 brain regions. Samples used are the first 20 in the time series. 
 
 \begin{figure}[h]
      \centering
@@ -216,18 +216,20 @@ In \cref{fig:2}, we show the corresponding adjacency matrices to graphs \ref{fig
      \hfill
      \begin{subfigure}[b]{0.24\textwidth}
          \centering
-         \includegraphics[width=\textwidth]{fig/graph_normal_subj_3D.eps}
+         \includegraphics[width=.8\textwidth]{fig/hypergraphN8.png}
+        %  graph_normal_subj_3D.eps}
          \caption{Normal Subject Hyper-Connectome}
          \label{fig:1c}
      \end{subfigure}
      \hfill
      \begin{subfigure}[b]{0.24\textwidth}
          \centering
-         \includegraphics[width=\textwidth]{fig/graph_schitz_subj_3D.eps}
+         \includegraphics[width=.8\textwidth]{fig/hypergraphS8.png}
+        %  graph_schitz_subj_3D.eps}
          \caption{Schiz. Subject Hyper-Connectome}
          \label{fig:1d}
      \end{subfigure}
-    \caption{Top: Connectome graph of normal vs. schiz. subject. Bottom: Hyper-Connectome of normal vs. schiz. subject projected to 2D. }
+    \caption{(a) and (b): Connectome graph of normal vs. schiz. subject with 30 ROI nodes and correlation weighted edges. (c) and (d): Hyper-Connectome of normal vs. schiz. subject, plotting significant (weight $>2^8$) edges (circles) for 30 ROI nodes (squares). }
     \label{fig:1}
 \end{figure}
 
@@ -260,16 +262,16 @@ In \cref{fig:2}, we show the corresponding adjacency matrices to graphs \ref{fig
          \caption{Schiz. Subject Total Correlation Tensor}
          \label{fig:2d}
      \end{subfigure}
-    \caption{Top: Pearson correlation matrix of normal vs. schiz. subject. Bottom: Total correlation tensor of normal vs. schiz. subject projected via summation to matrix. }
+    \caption{Top: Pearson correlation matrix of normal vs. schiz. subject, 30 ROIs. Bottom: Total correlation tensor of normal vs. schiz. subject, summed to matrix, 30 ROIs. }
     \label{fig:2}
 \end{figure}
 
 \subsection{Hyper-Connectome Classification} \label{sec:classification} 
-We showed in the previous section that the connectome and hyper-connectome are differ greatly in information content. The next question is how useful this is for distinguishing normal subjects and schizophrenic subjects. We vectorize the upper triangle of the connectome adjacency matrix and train a linear support vector machine to classify the subjects. After training, we calculate the test accuracy and F1 score on unseen data. We follow the same procedure with the hyper-connectome. We report the results in \cref{table:real_data}. We find an increase in the testing accuracy and in the F1 score from using the hyper-connectome versus the connectome. 
+We showed in the previous section that the connectome and hyper-connectome are differ greatly in information content. The next question is how useful this is for distinguishing normal subjects and schizophrenic subjects. We vectorize the upper triangle of the connectome adjacency matrix and train a linear support vector machine to classify the subjects. After training, we calculate the accuracy and F1 score on the (unseen) test data. We follow the same procedure with the hyper-connectome. We report the results in \cref{table:real_data}. We find an increase in the testing accuracy and in the F1 score from using the hyper-connectome versus the connectome. 
 
 \begin{table}[h]
 {\footnotesize
-  \caption{Linear support vector machine prediction of schiz. Hypergraph threshold $\epsilon = 10^{-5}$, dimension $d=3$, and 61 ROI variables considered. Subjects are 227. Samples over time are 30. The training/testing split is random 50\%. Calculations are average of 10 independent trials.}  \label{table:real_data}
+  \caption{Linear support vector machine prediction of schizophrenia. Hypergraph threshold $\epsilon = 10^{-5}$, dimension $d=3$, and 61 ROI variables considered. Samples over time are 30. The training/testing split is random 50\%. Calculations are average of 10 independent trials.}  \label{table:real_data}
 \begin{center}
   \begin{tabular}{|c|c|c|c|} \hline
                 & \bf Training Accuracy & \bf Testing Accuracy & \bf F1 Score \\ \hline
