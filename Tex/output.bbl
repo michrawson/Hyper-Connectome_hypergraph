@@ -1,0 +1,116 @@
+\begin{thebibliography}{10}
+
+\bibitem{Adhikari2019}
+{\sc B.~M. Adhikari, L.~E. Hong, H.~Sampath, J.~Chiappelli, N.~Jahanshad, P.~M.
+  Thompson, L.~M. Rowland, V.~D. Calhoun, X.~Du, S.~Chen, and P.~Kochunov},
+  {\em Functional network connectivity impairments and core cognitive deficits
+  in schizophrenia}, Human Brain Mapping, 40 (2019), pp.~4593--4605,
+  \url{https://doi.org/10.1002/hbm.24723}.
+
+\bibitem{Aksoy2020}
+{\sc {Aksoy, Sinan G.}, {Joslyn, Cliff}, {Ortiz Marrero, Carlos}, {Praggastis,
+  Brenda}, and {Purvine, Emilie}}, {\em Hypernetwork science via high-order
+  hypergraph walks}, EPJ Data Sci., 9 (2020), p.~16,
+  \url{https://doi.org/10.1140/epjds/s13688-020-00231-0}.
+
+\bibitem{Banka2020}
+{\sc A.~Banka, I.~Buzi, and I.~Rekik}, {\em Multi-view brain hyperconnectome
+  autoencoder for brain state classification}, in Predictive Intelligence in
+  Medicine, I.~Rekik, E.~Adeli, S.~H. Park, and M.~d.~C.
+  Vald{\'e}s~Hern{\'a}ndez, eds., Cham, 2020, Springer International
+  Publishing, pp.~101--110.
+
+\bibitem{Darling2005}
+{\sc R.~W.~R. Darling and J.~R. Norris}, {\em {Structure of large random
+  hypergraphs}}, The Annals of Applied Probability, 15 (2005), pp.~125 -- 152,
+  \url{https://doi.org/10.1214/105051604000000567}.
+
+\bibitem{Fan2016}
+{\sc L.~Fan, H.~Li, J.~Zhuo, Y.~Zhang, J.~Wang, L.~Chen, Z.~Yang, C.~Chu,
+  S.~Xie, A.~R. Laird, P.~T. Fox, S.~B. Eickhoff, C.~Yu, and T.~Jiang}, {\em
+  {The Human Brainnetome Atlas: A New Brain Atlas Based on Connectional
+  Architecture}}, Cerebral Cortex, 26 (2016), pp.~3508--3526,
+  \url{https://doi.org/10.1093/cercor/bhw157}.
+
+\bibitem{Giusti2016}
+{\sc C.~Giusti, R.~Ghrist, and D.~S. Bassett}, {\em Two's company, three (or
+  more) is a simplex}, Journal of Computational Neuroscience, 41 (2016),
+  pp.~1--14, \url{https://doi.org/10.1007/s10827-016-0608-6}.
+
+\bibitem{Guo2018}
+{\sc H.~Guo, Y.~Li, Y.~Xu, Y.~Jin, J.~Xiang, and J.~Chen}, {\em Resting-state
+  brain functional hyper-network construction based on elastic net and group
+  lasso methods}, Frontiers in Neuroinformatics, 12 (2018),
+  \url{https://doi.org/10.3389/fninf.2018.00025}.
+
+\bibitem{huettel2004}
+{\sc S.~A. Huettel, A.~W. Song, G.~McCarthy, et~al.}, {\em Functional magnetic
+  resonance imaging}, vol.~1, Sinauer Associates Sunderland, MA, 2004.
+
+\bibitem{Jie2016}
+{\sc B.~Jie, C.-Y. Wee, D.~Shen, and D.~Zhang}, {\em Hyper-connectivity of
+  functional networks for brain disease diagnosis}, Medical Image Analysis, 32
+  (2016), pp.~84--100, \url{https://doi.org/10.1016/j.media.2016.03.003}.
+
+\bibitem{Li2019}
+{\sc Y.~Li, J.~Liu, X.~Gao, B.~Jie, M.~Kim, P.-T. Yap, C.-Y. Wee, and D.~Shen},
+  {\em Multimodal hyper-connectivity of functional networks using
+  functionally-weighted lasso for mci classification}, Medical Image Analysis,
+  52 (2019), pp.~80--96, \url{https://doi.org/10.1016/j.media.2018.11.006}.
+
+\bibitem{Munsell2016}
+{\sc B.~C. Munsell, G.~Wu, Y.~Gao, N.~Desisto, and M.~Styner}, {\em Identifying
+  relationships in functional and structural connectome data using
+  a hypergraph learning method}, in Medical Image Computing and
+  Computer-Assisted Intervention -- MICCAI 2016, Cham, 2016, Springer
+  International Pub., pp.~9--17.
+
+\bibitem{Purvine2018}
+{\sc E.~Purvine, S.~Aksoy, C.~Joslyn, K.~Nowak, B.~Praggastis, and
+  M.~Robinson}, {\em A topological approach to representational data models},
+  in Human Interface and the Management of Information. Interaction,
+  Visualization, and Analytics, S.~Yamamoto and H.~Mori, eds., Cham, 2018,
+  Springer International Publishing, pp.~90--109.
+
+\bibitem{Sizemore2019}
+{\sc A.~E. Sizemore, J.~E. Phillips-Cremins, R.~Ghrist, and D.~S. Bassett},
+  {\em {The importance of the whole: Topological data analysis for the network
+  neuroscientist}}, Network Neuroscience, 3 (2019), pp.~656--673,
+  \url{https://doi.org/10.1162/netn_a_00073}.
+
+\bibitem{Stolz2021}
+{\sc B.~J. Stolz, T.~Emerson, S.~Nahkuri, M.~A. Porter, and H.~A. Harrington},
+  {\em Topological data analysis of task-based {fMRI} data from experiments on
+  schizophrenia}, Journal of Physics: Complexity, 2 (2021), p.~035006,
+  \url{https://doi.org/10.1088/2632-072x/abb4c6}.
+
+\bibitem{Wu2021}
+{\sc Q.~Wu, X.~Huang, A.~J. Culbreth, J.~A. Waltz, L.~E. Hong, and S.~Chen},
+  {\em Extracting brain disease-related connectome subgraphs by adaptive dense
+  subgraph discovery}, Biometrics,  (2021), pp.~1--13,
+  \url{https://doi.org/10.1111/biom.13537}.
+
+\bibitem{Xiao2020}
+{\sc L.~Xiao, J.~Wang, P.~H. Kassani, Y.~Zhang, Y.~Bai, J.~M. Stephen, T.~W.
+  Wilson, V.~D. Calhoun, and Y.-P. Wang}, {\em Multi-hypergraph learning-based
+  brain functional connectivity analysis in fmri data}, IEEE Transactions on
+  Medical Imaging, 39 (2020), pp.~1746--1758.
+
+\bibitem{zhou2021}
+{\sc Y.~Zhou, A.~Rathore, E.~Purvine, and B.~Wang}, {\em Topological
+  simplifications of hypergraphs}, 2021,
+  \url{https://arxiv.org/abs/2104.11214}.
+
+\bibitem{Zu2019}
+{\sc C.~Zu, Y.~Gao, B.~Munsell, M.~Kim, Z.~Peng, J.~R. Cohen, D.~Zhang, and
+  G.~Wu}, {\em Identifying disease-related subnetwork connectome biomarkers by
+  sparse hypergraph learning}, Brain Imaging and Behavior, 13 (2019),
+  pp.~879--892, \url{https://doi.org/10.1007/s11682-018-9899-8}.
+
+\bibitem{Zu2016}
+{\sc C.~Zu, Y.~Gao, B.~Munsell, M.~Kim, Z.~Peng, Y.~Zhu, W.~Gao, D.~Zhang,
+  D.~Shen, and G.~Wu}, {\em Identifying high order brain connectome biomarkers
+  via learning on hypergraph}, in Machine Learning in Medical Imaging, Cham,
+  2016, Springer International Publishing, pp.~1--9.
+
+\end{thebibliography}
