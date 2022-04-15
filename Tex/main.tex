@@ -48,7 +48,7 @@
 
 % Authors: full names plus addresses.
 \author{Michael G. Rawson\thanks{Department of Mathematics, University of Maryland at College Park, Maryland, USA 
-  (\email{rawson@umd.edu}).}}
+  (\email{rawson@umd.edu}) and the Pacific Northwest National Laboratory}}
 
 \usepackage{amsopn}
 \DeclareMathOperator{\diag}{diag}
@@ -79,7 +79,7 @@
 \maketitle
 
 \begin{abstract}
-    Brain function and connectivity is a pressing mystery in medicine related to many diseases. Neural connectomes have been studied as graphs with graph theory methods including topological methods. Work has started on hypergraph models and methods where the geometry and topology is significantly different. We define a hypergraph called the hyper-connectome with joint information entropy and total correlation. We give the pseudocode for computation from finite samples. We give the theoretic importance of this generalization's topology and geometry with respect to random variables and then prove the hypergraph can be necessary for prediction and classification. We confirm with a simulation study and computation. We prove the approximation for continuous random variables with finite samples. We compare connectome versus hyper-connectome for predicting schizophrenia in subjects based on a fMRI dataset using a linear support vector machine. The hyper-connectome achieves better performance in accuracy (up to 57\%) and F1 score (up to 0.52) than the connectome. 
+    Brain function and connectivity is a pressing mystery in medicine related to many diseases. Neural connectomes have been studied as graphs with graph theory methods including topological methods. Work has started on hypergraph models and methods where the geometry and topology is significantly different. We define a hypergraph called the hyper-connectome with joint information entropy and total correlation. We give the pseudocode for computation from finite samples. We give the theoretic importance of this generalization's topology and geometry with respect to random variables and then prove the hypergraph can be necessary for prediction and classification. We confirm with a simulation study and computation. We prove the approximation for continuous random variables with finite samples. We compare connectome versus hyper-connectome for predicting schizophrenia in subjects based on a fMRI dataset using a linear support vector machine. The hyper-connectome achieves better performance in accuracy (up to 56\%) and F1 score (up to 0.52) than the connectome. We reject null hypothesis at 95\% with p-value = 0.00074.
 \end{abstract}
 
 %   (max 5 pgs. excluding references and supplementary material)
@@ -101,13 +101,26 @@
 
 Functional magnetic resonance imaging (fMRI) since the 1990's has been used to investigate brain activity in a benign and noninvasive way \cite{huettel2004}. fMRI detects oxygen usage by neurons with changing magnetic fields. fMRI is not sensitive enough to measure something as small as a neuron so a region of around 4mm by 4mm by 4mm is scanned which we call a \emph{voxel}. 
 % Typically, the subject's whole brain is scanned over these small regions which are called \emph{voxels}. We can view the results as a 3D matrix, or array, of real numbers and each entry corresponds to a voxel or region in the subject. Each voxel represents an average of up to around a few million neurons and tens of billions of synapses. Implicit here is that the scan happens at some point in time. More accurately, the scan happens over around 1 second. This will miss events in the brain that happen in significantly less time than 1 second. Often this large dataset is compressed further by grouping voxels into known regions of the brain. 
-A connectome is a graph describing the connections between neurons. By grouping neurons into voxels (3D cubes in space), a graph can be constructed from fMRI scan data. Each vertex of the graph is a voxel and each weighted edge is the correlation between the voxels. Correlation between voxels imply the neurons are directly or indirectly connected. This also assumes that neural activity is probabilistic. When the number of samples or measurements is low, the statistical confidence is low. To improve the confidence, voxels are often grouped into brain regions. Then each brain region has many samples and the confidence of the correlation is much greater. Additionally, the graph where the vertices correspond to just 61 brain regions is much smaller allowing for more computationally intensive graph analysis methods and this is what we shall use in \cref{sec:classification}. 
+A connectome is a graph describing the connections between neurons. By grouping neurons into voxels (3D cubes in space), a graph can be constructed from fMRI scan data. Each vertex of the graph is a voxel and each weighted edge is the correlation between the voxels.
+Correlation between voxels imply so-called functional connectivity, which is the statistical relationship between specific physiological signals in time\cite{EICKHOFF2015}.
+% Correlation between voxels imply the neurons are directly or indirectly connected. 
+This also assumes that neural activity is probabilistic. When the number of samples or measurements is low, the statistical confidence is low. To improve the confidence, voxels are often grouped into brain regions. Then each brain region has many samples and the confidence of the correlation is much greater. Additionally, the graph where the vertices correspond to just 61 brain regions is much smaller allowing for more computationally intensive graph analysis methods and this is what we shall use in \cref{sec:classification}. 
 
-Brain fMRI scan data can be viewed as a hypergraph by using high order statistical methods. Hypergraph analysis can then yield a deeper, more informative analysis on brain connectomes. We build a brain connectome hypergraph from fMRI scans to identify indicators that are impossible to retrieve from a standard brain connectome graph. Note that the hyper-connectome is \emph{not} a simplicial complex and thus most topological data analysis (TDA) methods, such as persistent homology, will not work here \cite{Stolz2021}. 
+Brain fMRI scan data can be viewed as a hypergraph by using high order statistical methods. 
+A hypergraph is a graph with edges between a tuple/group of vertices ($\ge 2$). We'll define a hypergraph model and calculate weights on the hyperedges. Hypergraph analyses can yield a deeper, more informative analysis on brain connectomes. We build a brain connectome hypergraph from fMRI scans to identify indicators that are impossible to retrieve from a standard brain connectome graph. Note that the hyper-connectome is \emph{not} a simplicial complex and thus most topological data analysis (TDA) methods, such as persistent homology, will not work here \cite{Stolz2021}. However, completing a hypergraph to a simplicial complex is another technique to consider. 
 
-\section{Literature Review}
+\section{Related Work}
 
-There has been a large amount of activity around this area in the recent past. In the 2000s, Darling and Norris studied large random hypergraphs \cite{Darling2005} which is exactly what a hyper-connectome is. Then in 2016, Munsell, Zu, Giusti, et al. considered different types of hypergraphs related to connectomes and neural data and various diseases \cite{Giusti2016, Munsell2016, Zu2016}. Sparse linear regression has been used to predict hyperedges in hypergraphs and classify disease \cite{Guo2018, Jie2016, Li2019}. In 2018, hypergraph methods were compared and contrasted to TDA, sheaf methods, point cloud methods, and others by Purvine et al. \cite{Purvine2018}. Later, Sizemore et al. created a structural hypergraph of a mouse connectome \cite{Sizemore2019} and analyzed the topology. On the other hand, others learned, or optimized, a hypergraph as opposed to direct calculation \cite{Xiao2020, Zu2019}. Banka et al. learned autoencoder embeddings by hypergraphs \cite{Banka2020}. More broadly, Aksoy et al. performed a general comparison between graphs and hypergraphs and their methods \cite{Aksoy2020}. More recently, Stolz et al. analyzed the topology of connectomes in schizophrenic subjects versus normal subjects (siblings and non-siblings) \cite{Stolz2021}.
+There has been a large amount of activity around hypergraphs and their connection to connectomics in the recent past.
+% There has been a large amount of activity around this area in the recent past. 
+In the 2000s, Darling and Norris studied large random hypergraphs \cite{Darling2005} which is exactly what a hyper-connectome is. 
+In 2018, hypergraph methods were compared and contrasted to TDA, sheaf methods, point cloud methods, and others by Purvine et al. \cite{Purvine2018}. 
+Later, Aksoy et al. performed a general comparison between graphs and hypergraphs and their methods \cite{Aksoy2020}. 
+On the connectomics front, in 2016, Munsell, Zu, Giusti, et al. considered different types of hypergraphs related to connectomes and neural data and various diseases \cite{Giusti2016, Munsell2016, Zu2016}. Sparse linear regression has been used to predict hyperedges in hypergraphs and classify disease \cite{Guo2018, Jie2016, Li2019}. 
+Later, Sizemore et al. created a structural hypergraph of a mouse connectome \cite{Sizemore2019} and analyzed the topology. 
+On the other hand, others learned, or optimized, a hypergraph as opposed to direct calculation \cite{Xiao2020, Zu2019}. 
+Banka et al. learned autoencoder embeddings by hypergraphs \cite{Banka2020}. 
+More recently, Stolz et al. analyzed the topology of connectomes in schizophrenic subjects versus normal subjects (siblings and non-siblings) \cite{Stolz2021}.
 
 \section{Theory} 
 Given two random variables, the Pearson correlation coefficient is \\
@@ -128,9 +141,9 @@ $ H(X_1,...,X_n) = - \sum_{x_1,...,x_n\in\R} p(x_1,...,x_n) \log p(x_1,...,x_n) 
 \end{align*}
 We use the following well known simplification. 
 \begin{proposition}\label{prop:total_corr}
-\begin{align*}
+\begin{align}\label{eq:total_corr}
 C(X_1,X_2,...,X_n) = \sum_{x_1,x_2,...,x_n \in \R} p(x_1,x_2,...,x_n) \log\frac{p(x_1,x_2,...,x_n)}{p(x_1)p(x_2)...p(x_n)}.
-\end{align*}
+\end{align}
 \end{proposition}
 
 Proof in supplemental. Next we show how discrete random variables can approximate absolutely continuous random variables. 
@@ -150,7 +163,7 @@ For any $\epsilon>0$, there is an discrete approximation with the total correlat
 
 \end{theorem}
 
-Proof in supplemental. With the justification of \cref{thm}, we will approximate the total correlation from finite samples with \cref{alg:total_corr}. 
+Proof in supplemental. With the justification of \cref{thm}, we will approximate the total correlation from finite samples with \cref{alg:total_corr}. \cref{alg:total_corr} takes finite samples and approximates each probability in \eqref{eq:total_corr} with a localized mean of samples. 
 
 \section{Simulation Study Results}\label{ssec:sim} 
 First we'll consider a small example where we know the distributions. We'll setup the distributions where doing classification by hypergraph is in theory possible, which we prove. For random variables $X$ and $Y$, let 
@@ -170,7 +183,7 @@ C(Y_1,Y_2,Y_3) &= [\sum_i H(Y_i)] - H(Y_1,Y_2,Y_3) < 0.
 \end{align*}
 \end{proposition}
 Proof in supplemental. 
-In this case, a discriminator can distinguish subject $Y$ from subject $X$ with total correlation but would fail to distinguish when using Pearson correlations. If this was a neural connectome, only the hyper-connectome could classify the subjects. 
+In this case, a discriminator can distinguish subject $Y$ from subject $X$ with total correlation but would fail to distinguish when using Pearson correlations. If this was a neural connectome, only the hyper-connectome could classify the subjects, because the hypergraph additionally contains the 2-simplices (or triangle edges).
 
 We calculated the hypergraph with \cref{alg:total_corr}. Then we classify the data with a linear support vector machine. We give the results in \cref{table:sim}. The graph does not contain the information needed to classify the subject as a member of $X$ versus $Y$. The hypergraph does contain the information and the classifier successfully distinguishes $X$ from $Y$.
 
@@ -191,12 +204,12 @@ We calculated the hypergraph with \cref{alg:total_corr}. Then we classify the da
 
 We next compute the hyper-connectome on real data. We utilize a schizophrenia (schiz.) fMRI dataset, see \cite{Wu2021}, consisting of 104 patients with schizophrenia and 124 healthy, normal controls. Between the groups, the age and gender differences are minimal (schiz.: age 36.88 $\pm$ 14.17 with 62 males, 41 females, 1 other, and 
 Normal: age 33.75 $\pm$ 14.22 with 61 males and 63 females).
-The fMRI aquisition details and preprocessing details are laid out in Adhikari et al. \cite{Adhikari2019}. This dataset consists of activity in 246 regions of interest (ROI) which we call the \emph{ROI variables} \cite{Fan2016}. We create the connectome and hyper-connectome with a subset of these ROI variables.
+The fMRI aquisition details and preprocessing details are laid out in Adhikari et al. \cite{Adhikari2019}. This dataset consists of activity in 246 regions of interest (ROI) which we call the \emph{ROI variables} \cite{Fan2016}. Each ROI is formed from many distinct voxels. We create the connectome and hyper-connectome with a subset of these ROI variables. The vertices are each labelled with an ROI. 
 
 \subsection{Hyper-Connectome Visualization} 
-We visualize connectomes by plotting the graph for a normal subject and schiz. subject in \cref{fig:1a} and \cref{fig:1b}. In this graph, the nodes are the brain regions and the edges are the absolute value of Pearson correlation between regions, where length and width indicate the weight of the edge. In \cref{fig:1c} and \cref{fig:1d}, we visualize the hyper-connectomes of the same two subjects. In this graph, the square nodes are the brain regions and the circles are significant hyper-edges between multiple nodes \cite{zhou2021}. We see that the connectomes are highly clustered with few outliers versus the hyper-connectomes which are have nodes covering the connectedness spectrum. 
+We visualize connectomes by plotting the graph for a normal subject and schiz. subject in \cref{fig:1a} and \cref{fig:1b}. In this graph, the nodes are the brain regions and the edges are the absolute value of Pearson correlation between regions, where length and width indicate the weight of the edge. In \cref{fig:1c} and \cref{fig:1d}, we visualize the hyper-connectomes of the same two subjects. In this graph, the square nodes are the brain regions and the circles are significant hyperedges between multiple nodes \cite{zhou2021}. We see that the connectomes are highly clustered with few outliers versus the hyper-connectomes which are have nodes covering the connectedness spectrum. 
 
-In \cref{fig:2}, we show the corresponding adjacency matrices to the graphs in \cref{fig:1}. For each pair of ROI, we sum the weights of all common hyperedges to produce the adjacency matrices in \cref{fig:2c} and \cref{fig:2d}. We see that the magnitudes of \cref{fig:2a} and \cref{fig:2b} are similar (in 0 to 1) while the maximums of \cref{fig:2c} and \cref{fig:2d} differ significantly (5000 vs. 5500). We calculated the hypergraph with \cref{alg:total_corr}. The hypergraph threshold $\epsilon = 10^{-5}$, dimension $d=3$, and ROI variables are 30 brain regions. Samples used are the first 20 in the time series. 
+In \cref{fig:2}, we show the corresponding adjacency matrices to the graphs in \cref{fig:1} (ROI/vertices in same order). For each pair of ROI, we sum the weights of all common hyperedges to produce the adjacency matrices in \cref{fig:2c} and \cref{fig:2d}. We see that the magnitudes of \cref{fig:2a} and \cref{fig:2b} are similar (in 0 to 1) while the maximums of \cref{fig:2c} and \cref{fig:2d} differ significantly (5000 vs. 5500). We calculated the hypergraph with \cref{alg:total_corr}. The hypergraph threshold $\epsilon = 10^{-5}$, dimension $d=3$, and ROI variables are 30 brain regions. The $\epsilon$ is chosen by searching and corresponds to sampling density. Samples used are the first 20 in the time series. 
 
 \begin{figure}[h]
      \centering
@@ -267,28 +280,26 @@ In \cref{fig:2}, we show the corresponding adjacency matrices to the graphs in \
 \end{figure}
 
 \subsection{Hyper-Connectome Classification} \label{sec:classification} 
-We showed in the previous section that the connectome and hyper-connectome are differ greatly in information content. The next question is how useful this is for distinguishing normal subjects and schizophrenic subjects. We vectorize the upper triangle of the connectome adjacency matrix and train a linear support vector machine to classify the subjects. After training, we calculate the accuracy and F1 score on the (unseen) test data. We follow the same procedure with the hyper-connectome. We report the results in \cref{table:real_data}. We find an increase in the testing accuracy and in the F1 score from using the hyper-connectome versus the connectome. 
+We showed in the previous section that the connectome and hyper-connectome can differ greatly in information content. The next question is how useful this is for distinguishing normal subjects and schizophrenic subjects. We vectorize the upper triangle of the connectome adjacency matrix and train a linear support vector machine to classify the subjects. After training, we calculate the accuracy and F1 score on the (unseen) test data. We follow the same procedure with the hyper-connectome. We report the results in \cref{table:real_data}. We find an increase in the testing accuracy and in the F1 score from using the hyper-connectome versus the connectome. We compute the two-sample t-test and reject the equal testing accuracy mean hypothesis at 95\% confidence with p-value = 0.00074.
 
 \begin{table}[h]
 {\footnotesize
-  \caption{Linear support vector machine prediction of schizophrenia. Hypergraph threshold $\epsilon = 10^{-5}$, dimension $d=3$, and 61 ROI variables considered. Samples over time are 30. The training/testing split is random 50\%. Calculations are average of 10 independent trials.}  \label{table:real_data}
+  \caption{Linear support vector machine prediction of schizophrenia. Hypergraph threshold $\epsilon = 10^{-5}$, dimension $d=3$, and 61 ROI variables considered. Samples over time are 20. The training/testing split is random 50\%. Calculations are average of 10 independent trials. Reject null hypothesis at 95\% with p-value = 0.00074. }  \label{table:real_data}
 \begin{center}
   \begin{tabular}{|c|c|c|c|} \hline
                 & \bf Training Accuracy & \bf Testing Accuracy & \bf F1 Score \\ \hline
-    Graph       & 100\% & 51\% & 0.44 \\ \hline
-    Hypergraph  & 100\% & 57\% & 0.52 \\ \hline
+    Graph       & 100\% & 50\% & 0.44 \\ \hline
+    Hypergraph  & 100\% & 56\% & 0.52 \\ \hline
   \end{tabular}
 \end{center}
 }
 \end{table}
 
 \section{Conclusions} 
-We have introduced the entropic hyper-connectome as a useful concept to study neuronal structure, function, and abnormalities. We have demonstrated this with fMRI data in vivo. From theory we have defined the hypergraph and proved that it can be necessary to detect various mixture distributions. We visualized the connectome and hyper-connectome and see significant differences. Finally, we trained a classifier to show that the hyper-edges can improve classification.
+We have introduced the entropic hyper-connectome as a useful concept to study neuronal structure, function, and abnormalities. We have demonstrated this with fMRI data in vivo. From theory we have defined the hypergraph and proved that it can be necessary to detect various mixture distributions. We visualized the connectome and hyper-connectome and see significant differences. Finally, we trained a classifier to show that the hyperedges can improve classification with statistical significance.
 
 \section*{Acknowledgments} 
 The author thanks Dr. Shuo Chen, Dr. Elliot Hong, Dr. Peter Kochunov, the Maryland Psychiatric Research Center, and the University of Maryland School of Medicine for the fMRI schizophrenia dataset. The author thanks Dr. Michael Robinson for many helpful conversations. 
-
-\newpage
 
 \bibliographystyle{siamplain}
 \bibliography{references}
