@@ -185,7 +185,7 @@ C(Y_1,Y_2,Y_3) &= [\sum_i H(Y_i)] - H(Y_1,Y_2,Y_3) < 0.
 Proof in supplemental. 
 In this case, a discriminator can distinguish subject $Y$ from subject $X$ with total correlation but would fail to distinguish when using Pearson correlations. If this was a neural connectome, only the hyper-connectome could classify the subjects, because the hypergraph additionally contains the 2-simplices (or triangle edges).
 
-We calculated the hypergraph with \cref{alg:total_corr}. Then we classify the data with a linear support vector machine. We give the results in \cref{table:sim}. The graph does not contain the information needed to classify the subject as a member of $X$ versus $Y$. The hypergraph does contain the information and the classifier successfully distinguishes $X$ from $Y$.
+We calculated the hypergraph weights with \cref{alg:total_corr}. Then we classify the data with a linear support vector machine. We give the results in \cref{table:sim}. The graph does not contain the information needed to classify the subject as a member of $X$ versus $Y$. The hypergraph does contain the information and the classifier successfully distinguishes $X$ from $Y$.
 
 \begin{table}[h]
 {\footnotesize
@@ -208,8 +208,6 @@ The fMRI aquisition details and preprocessing details are laid out in Adhikari e
 
 \subsection{Hyper-Connectome Visualization} 
 We visualize connectomes by plotting the graph for a normal subject and schiz. subject in \cref{fig:1a} and \cref{fig:1b}. In this graph, the nodes are the brain regions and the edges are the absolute value of Pearson correlation between regions, where length and width indicate the weight of the edge. In \cref{fig:1c} and \cref{fig:1d}, we visualize the hyper-connectomes of the same two subjects. In this graph, the square nodes are the brain regions and the circles are significant hyperedges between multiple nodes \cite{zhou2021}. We see that the connectomes are highly clustered with few outliers versus the hyper-connectomes which are have nodes covering the connectedness spectrum. 
-
-In \cref{fig:2}, we show the corresponding adjacency matrices to the graphs in \cref{fig:1} (ROI/vertices in same order). For each pair of ROI, we sum the weights of all common hyperedges to produce the adjacency matrices in \cref{fig:2c} and \cref{fig:2d}. We see that the magnitudes of \cref{fig:2a} and \cref{fig:2b} are similar (in 0 to 1) while the maximums of \cref{fig:2c} and \cref{fig:2d} differ significantly (5000 vs. 5500). We calculated the hypergraph with \cref{alg:total_corr}. The hypergraph threshold $\epsilon = 10^{-5}$, dimension $d=3$, and ROI variables are 30 brain regions. The $\epsilon$ is chosen by searching and corresponds to sampling density. Samples used are the first 20 in the time series. 
 
 \begin{figure}[h]
      \centering
@@ -242,9 +240,11 @@ In \cref{fig:2}, we show the corresponding adjacency matrices to the graphs in \
          \caption{Schiz. Subject Hyper-Connectome}
          \label{fig:1d}
      \end{subfigure}
-    \caption{(a) and (b): Connectome graph of normal vs. schiz. subject with 30 ROI nodes and correlation weighted edges. (c) and (d): Hyper-Connectome of normal vs. schiz. subject, plotting significant (weight $>2^8$) edges (circles) for 30 ROI nodes (squares). }
+    \caption{(a) and (b): Connectome graph of a normal vs. a schiz. subject with 30 ROI nodes and correlation weighted edges. (c) and (d): Hyper-Connectome of a normal vs. a schiz. subject, plotting significant (weight $>2^8$) edges (circles) for 30 ROI nodes (squares). }
     \label{fig:1}
 \end{figure}
+
+In \cref{fig:2}, we show the corresponding adjacency matrices to the graphs in \cref{fig:1} (ROI/vertices in same order). For each pair of ROI, we sum the weights of all common hyperedges to produce the adjacency matrices in \cref{fig:2c} and \cref{fig:2d}. We see that the magnitudes of \cref{fig:2a} and \cref{fig:2b} are similar (in 0 to 1) while the maximums of \cref{fig:2c} and \cref{fig:2d} differ significantly (5000 vs. 5500). We calculated the hypergraph with \cref{alg:total_corr}. The hypergraph threshold $\epsilon = 10^{-5}$, dimension $d=3$, and ROI variables are brain regions 1 to 30. The $\epsilon$ is chosen by searching and corresponds to sampling density. Samples used are the first 20 in the time series. 
 
 \begin{figure}[h]
      \centering
@@ -275,16 +275,16 @@ In \cref{fig:2}, we show the corresponding adjacency matrices to the graphs in \
          \caption{Schiz. Subject Total Correlation Tensor}
          \label{fig:2d}
      \end{subfigure}
-    \caption{Top: Pearson correlation matrix of normal vs. schiz. subject, 30 ROIs. Bottom: Total correlation tensor of normal vs. schiz. subject, summed to matrix, 30 ROIs. }
+    \caption{Top: Pearson correlation matrix of a normal vs. a schiz. subject, 30 ROIs. Bottom: Total correlation tensor of a normal vs. a schiz. subject, summed to matrix, 30 ROIs. }
     \label{fig:2}
 \end{figure}
 
 \subsection{Hyper-Connectome Classification} \label{sec:classification} 
-We showed in the previous section that the connectome and hyper-connectome can differ greatly in information content. The next question is how useful this is for distinguishing normal subjects and schizophrenic subjects. We vectorize the upper triangle of the connectome adjacency matrix and train a linear support vector machine to classify the subjects. After training, we calculate the accuracy and F1 score on the (unseen) test data. We follow the same procedure with the hyper-connectome. We report the results in \cref{table:real_data}. We find an increase in the testing accuracy and in the F1 score from using the hyper-connectome versus the connectome. We compute the two-sample t-test and reject the equal testing accuracy mean hypothesis at 95\% confidence with p-value = 0.00074.
+We showed in the previous section that the connectome and hyper-connectome can differ greatly in information content. The next question is how useful this is for distinguishing normal subjects and schizophrenic subjects. We vectorize the upper triangle of the connectome adjacency matrix and train a linear support vector machine to classify the subjects. After training, we calculate the accuracy and F1 score on the (unseen) test data. We follow the same procedure with the hyper-connectome. We report the results in \cref{table:real_data}. We find an increase in the testing accuracy of 6\% and in the F1 score of .08 from using the hyper-connectome versus the connectome. We compute the two-sample t-test and reject the equal testing accuracy mean hypothesis at 95\% confidence with p-value = 0.00074.
 
 \begin{table}[h]
 {\footnotesize
-  \caption{Linear support vector machine prediction of schizophrenia. Hypergraph threshold $\epsilon = 10^{-5}$, dimension $d=3$, and 61 ROI variables considered. Samples over time are 20. The training/testing split is random 50\%. Calculations are average of 10 independent trials. Reject null hypothesis at 95\% with p-value = 0.00074. }  \label{table:real_data}
+  \caption{Linear support vector machine prediction of schizophrenia. Hypergraph threshold $\epsilon = 10^{-5}$, dimension $d=3$, and ROI variables 1 to 61 considered. Samples over time are 20. The training/testing split is random 50\%. Calculations are average of 10 independent trials. Reject null hypothesis at 95\% with p-value = 0.00074. }  \label{table:real_data}
 \begin{center}
   \begin{tabular}{|c|c|c|c|} \hline
                 & \bf Training Accuracy & \bf Testing Accuracy & \bf F1 Score \\ \hline
@@ -304,6 +304,7 @@ The author thanks Dr. Shuo Chen, Dr. Elliot Hong, Dr. Peter Kochunov, the Maryla
 \bibliographystyle{siamplain}
 \bibliography{references}
 
+\newpage
 \appendix
 \section*{Supplementary Materials}
 
